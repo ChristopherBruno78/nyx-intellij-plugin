@@ -4,20 +4,44 @@ import com.intellij.psi.PsiElement;
 
 public class NyxPsiUtil {
     /**
-     * Extract function/method signature including parameters from the full text
+     * Extract function/method/constructor signature including parameters from the full text
      */
     public static String extractSignature(PsiElement element) {
         String fullText = element.getText();
 
-        // Find the function/method name and parameters
-        // Pattern: "function name(params)" or "func name(params)"
+        // Find the function/method/constructor name and parameters
+        // Pattern: "function name(params)", "func name(params)", or "init(params)"
         int nameStart = -1;
         int nameEnd = -1;
         int parenStart = -1;
         int parenEnd = -1;
 
-        // Skip the keyword (function/func)
+        // Skip the keyword (function/func/init)
         String trimmed = fullText.trim();
+
+        // Handle constructors (init)
+        if (trimmed.startsWith("init")) {
+            // Constructors don't have a name, just parameters
+            parenStart = trimmed.indexOf('(');
+            if (parenStart >= 0) {
+                // Find the matching closing parenthesis
+                int depth = 1;
+                parenEnd = parenStart + 1;
+                while (parenEnd < trimmed.length() && depth > 0) {
+                    if (trimmed.charAt(parenEnd) == '(') depth++;
+                    else if (trimmed.charAt(parenEnd) == ')') depth--;
+                    parenEnd++;
+                }
+                parenEnd--; // Back up to the closing paren
+
+                String params = trimmed.substring(parenStart, parenEnd + 1);
+                return "init" + params;
+            } else {
+                return "init()";
+            }
+        }
+
+        // Handle functions and methods
         if (trimmed.startsWith("function ")) {
             nameStart = trimmed.indexOf("function ") + 9;
         } else if (trimmed.startsWith("func ")) {

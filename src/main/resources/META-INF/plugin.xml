@@ -36,5 +36,23 @@
 
         <!-- Reference Resolution -->
         <psi.referenceContributor implementation="com.nyx.lang.NyxReferenceContributor"/>
+
+        <!-- Brace Matching -->
+        <lang.braceMatcher language="Nyx"
+                           implementationClass="com.nyx.lang.NyxBraceMatcher"/>
+
+        <!-- Quote Handler -->
+        <lang.quoteHandler language="Nyx"
+                          implementationClass="com.nyx.lang.NyxQuoteHandler"/>
+
+        <!-- Typed Handler -->
+        <typedHandler implementation="com.nyx.lang.NyxTypedHandler"/>
+
+        <!-- Completion Auto-Popup Handler -->
+        <typedHandler implementation="com.nyx.lang.NyxCompletionAutoPopupHandler" order="first"/>
+
+        <!-- Code Folding -->
+        <lang.foldingBuilder language="Nyx"
+                             implementationClass="com.nyx.lang.NyxFoldingBuilder"/>
     </extensions>
 </idea-plugin>

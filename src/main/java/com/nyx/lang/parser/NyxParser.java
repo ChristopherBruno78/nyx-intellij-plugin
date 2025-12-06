@@ -97,11 +97,16 @@ public class NyxParser implements PsiParser {
                 }
             }
 
-            // Inside the class body, parse methods
+            // Inside the class body, parse methods and constructors
             if (foundOpenBrace && braceCount == 1) {
-                if (tokenType == NyxTokenTypes.KEYWORD && text != null && text.equals("func")) {
-                    parseMethodDeclaration(builder);
-                    continue;
+                if (tokenType == NyxTokenTypes.KEYWORD && text != null) {
+                    if (text.equals("func")) {
+                        parseMethodDeclaration(builder);
+                        continue;
+                    } else if (text.equals("init")) {
+                        parseConstructorDeclaration(builder);
+                        continue;
+                    }
                 }
             }
 
@@ -122,6 +127,17 @@ public class NyxParser implements PsiParser {
         skipToClosingBrace(builder);
 
         marker.done(NyxElementTypes.METHOD_DECLARATION);
+    }
+
+    private void parseConstructorDeclaration(PsiBuilder builder) {
+        PsiBuilder.Marker marker = builder.mark();
+        builder.advanceLexer(); // 'init'
+
+        // Constructors don't have a name, they start with parameters
+        // Skip everything until we find the matching closing brace or EOF
+        skipToClosingBrace(builder);
+
+        marker.done(NyxElementTypes.CONSTRUCTOR_DECLARATION);
     }
 
     private void parseFunctionDeclaration(PsiBuilder builder) {

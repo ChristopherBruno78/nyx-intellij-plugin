@@ -13,4 +13,18 @@ public interface NyxTokenTypes {
     IElementType KEYWORD = new NyxTokenType("KEYWORD");
     IElementType IDENTIFIER = new NyxTokenType("IDENTIFIER");
     IElementType OPERATOR = new NyxTokenType("OPERATOR");
+
+    // Braces, brackets, and parentheses
+    IElementType LBRACE = new NyxTokenType("LBRACE");
+    IElementType RBRACE = new NyxTokenType("RBRACE");
+    IElementType LBRACKET = new NyxTokenType("LBRACKET");
+    IElementType RBRACKET = new NyxTokenType("RBRACKET");
+    IElementType LPAREN = new NyxTokenType("LPAREN");
+    IElementType RPAREN = new NyxTokenType("RPAREN");
+
+    // Common punctuation
+    IElementType SEMICOLON = new NyxTokenType("SEMICOLON");
+    IElementType COMMA = new NyxTokenType("COMMA");
+    IElementType DOT = new NyxTokenType("DOT");
+    IElementType COLON = new NyxTokenType("COLON");
 }

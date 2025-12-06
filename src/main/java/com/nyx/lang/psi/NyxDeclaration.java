@@ -5,6 +5,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiNamedElement;
 import com.intellij.util.IncorrectOperationException;
+import com.nyx.lang.NyxElementTypes;
 import com.nyx.lang.NyxTokenTypes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -17,7 +18,20 @@ public class NyxDeclaration extends ASTWrapperPsiElement implements NyxNamedElem
     @Nullable
     @Override
     public PsiElement getNameIdentifier() {
-        // Find the first identifier token
+        // Constructors don't have a name identifier - they use the 'init' keyword
+        if (getNode().getElementType() == NyxElementTypes.CONSTRUCTOR_DECLARATION) {
+            // Find the 'init' keyword token
+            ASTNode[] children = getNode().getChildren(null);
+            for (ASTNode child : children) {
+                if (child.getElementType() == NyxTokenTypes.KEYWORD &&
+                    "init".equals(child.getText())) {
+                    return child.getPsi();
+                }
+            }
+            return null;
+        }
+
+        // Find the first identifier token for other declarations
         ASTNode[] children = getNode().getChildren(null);
         for (ASTNode child : children) {
             if (child.getElementType() == NyxTokenTypes.IDENTIFIER) {
@@ -30,6 +44,11 @@ public class NyxDeclaration extends ASTWrapperPsiElement implements NyxNamedElem
     @Nullable
     @Override
     public String getName() {
+        // For constructors, return "init" as the name
+        if (getNode().getElementType() == NyxElementTypes.CONSTRUCTOR_DECLARATION) {
+            return "init";
+        }
+
         PsiElement nameIdentifier = getNameIdentifier();
         return nameIdentifier != null ? nameIdentifier.getText() : null;
     }

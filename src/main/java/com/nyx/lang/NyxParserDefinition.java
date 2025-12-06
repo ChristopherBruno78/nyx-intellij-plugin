@@ -56,7 +56,8 @@ public class NyxParserDefinition implements ParserDefinition {
             node.getElementType() == NyxElementTypes.INTERFACE_DECLARATION ||
             node.getElementType() == NyxElementTypes.ENUM_DECLARATION ||
             node.getElementType() == NyxElementTypes.VARIABLE_DECLARATION ||
-            node.getElementType() == NyxElementTypes.METHOD_DECLARATION) {
+            node.getElementType() == NyxElementTypes.METHOD_DECLARATION ||
+            node.getElementType() == NyxElementTypes.CONSTRUCTOR_DECLARATION) {
             return new com.nyx.lang.psi.NyxDeclaration(node);
         }
         return new NyxPsiElement(node);

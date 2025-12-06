@@ -145,7 +145,51 @@ public class NyxLexer extends LexerBase {
             return;
         }
 
-        // Operators and punctuation
+        // Braces, brackets, and parentheses
+        switch (c) {
+            case '{':
+                currentTokenEnd = currentOffset + 1;
+                currentTokenType = NyxTokenTypes.LBRACE;
+                return;
+            case '}':
+                currentTokenEnd = currentOffset + 1;
+                currentTokenType = NyxTokenTypes.RBRACE;
+                return;
+            case '[':
+                currentTokenEnd = currentOffset + 1;
+                currentTokenType = NyxTokenTypes.LBRACKET;
+                return;
+            case ']':
+                currentTokenEnd = currentOffset + 1;
+                currentTokenType = NyxTokenTypes.RBRACKET;
+                return;
+            case '(':
+                currentTokenEnd = currentOffset + 1;
+                currentTokenType = NyxTokenTypes.LPAREN;
+                return;
+            case ')':
+                currentTokenEnd = currentOffset + 1;
+                currentTokenType = NyxTokenTypes.RPAREN;
+                return;
+            case ';':
+                currentTokenEnd = currentOffset + 1;
+                currentTokenType = NyxTokenTypes.SEMICOLON;
+                return;
+            case ',':
+                currentTokenEnd = currentOffset + 1;
+                currentTokenType = NyxTokenTypes.COMMA;
+                return;
+            case '.':
+                currentTokenEnd = currentOffset + 1;
+                currentTokenType = NyxTokenTypes.DOT;
+                return;
+            case ':':
+                currentTokenEnd = currentOffset + 1;
+                currentTokenType = NyxTokenTypes.COLON;
+                return;
+        }
+
+        // Operators
         if (isOperatorChar(c)) {
             int pos = currentOffset;
             while (pos < endOffset && isOperatorChar(buffer.charAt(pos))) {
@@ -175,7 +219,7 @@ public class NyxLexer extends LexerBase {
     private boolean isKeyword(String text) {
         return text.equals("func") || text.equals("init") || text.equals("enum") ||
                text.equals("prop") || text.equals("type") || text.equals("interface") ||
-               text.equals("readonly") || text.equals("as") ||
+               text.equals("readonly") || text.equals("as") || text.equals("global") ||
                // JavaScript keywords
                text.equals("var") || text.equals("let") || text.equals("const") ||
                text.equals("function") || text.equals("class") || text.equals("extends") ||
@@ -198,8 +242,6 @@ public class NyxLexer extends LexerBase {
     private boolean isOperatorChar(char c) {
         return c == '+' || c == '-' || c == '*' || c == '/' || c == '%' ||
                c == '=' || c == '!' || c == '<' || c == '>' || c == '&' ||
-               c == '|' || c == '^' || c == '~' || c == '?' || c == ':' ||
-               c == '.' || c == ',' || c == ';' || c == '(' || c == ')' ||
-               c == '[' || c == ']' || c == '{' || c == '}';
+               c == '|' || c == '^' || c == '~' || c == '?';
     }
 }
