@@ -1,6 +1,6 @@
 # Nyx Language Support for IntelliJ IDEA
 
-This plugin provides syntax highlighting and language support for the Nyx programming language.
+This plugin provides syntax highlighting and language support for the [Nyx programming language](https://github.com/musictheory/Nyx).
 
 ## Features
 
