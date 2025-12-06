@@ -1,0 +1,40 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>com.nyx.lang</id>
+    <name>Nyx Language Support</name>
+    <vendor>Nyx Plugin Developers</vendor>
+
+    <description><![CDATA[
+    Syntax highlighting and language support for the Nyx programming language.
+    Nyx is a superset of JavaScript that borrows features from TypeScript, Swift, and Objective-C.
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- File Type -->
+        <fileType name="Nyx"
+                  implementationClass="com.nyx.lang.NyxFileType"
+                  fieldName="INSTANCE"
+                  language="Nyx"
+                  extensions="nx"/>
+
+        <!-- Language -->
+        <lang.parserDefinition language="Nyx"
+                               implementationClass="com.nyx.lang.NyxParserDefinition"/>
+
+        <!-- Syntax Highlighter -->
+        <lang.syntaxHighlighterFactory language="Nyx"
+                                       implementationClass="com.nyx.lang.NyxSyntaxHighlighterFactory"/>
+
+        <!-- Color Settings -->
+        <colorSettingsPage implementation="com.nyx.lang.NyxColorSettingsPage"/>
+
+        <!-- Code Completion -->
+        <completion.contributor language="Nyx"
+                                implementationClass="com.nyx.lang.NyxCompletionContributor"/>
+
+        <!-- Reference Resolution -->
+        <psi.referenceContributor implementation="com.nyx.lang.NyxReferenceContributor"/>
+    </extensions>
+</idea-plugin>

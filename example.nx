@@ -1,0 +1,42 @@
+// Example Nyx file to test syntax highlighting and autocomplete
+import { Component } from "framework";
+
+type Point = {
+    x: number,
+    y: number
+};
+
+interface Drawable {
+    func draw(): void;
+}
+
+class Button implements Drawable {
+    private title: string;
+    readonly color: string?;
+
+    init(title: string, color: string?) {
+        this.title = title;
+        this.color = color;
+    }
+
+    func greet(person: string): string {
+        return `Hello, ${person}!`;
+    }
+
+    func draw(): void {
+        console.log("Drawing button");
+    }
+}
+
+enum Status {
+    Active = 1,
+    Inactive = 0
+}
+
+const button = new Button(title: "Click Me", color: "#ff0000");
+let message = button.greet(person: "World");
+console.log(message);
+
+// Now try typing: butto<Ctrl+Space> - you should see "button" in autocomplete
+// Or type: Butt<Ctrl+Space> - you should see "Button" class
+// Variables, classes, functions, interfaces, and enums are all autocompleted!

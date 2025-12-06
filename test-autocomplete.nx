@@ -1,0 +1,62 @@
+// Test file for autocomplete with function signatures
+
+function calculateSum(a: number, b: number): number {
+    return a + b;
+}
+
+function greetPerson(name: string, age: number): string {
+    return `Hello ${name}, you are ${age} years old`;
+}
+
+function processData(input: string, options: object, callback: function): void {
+    callback(input);
+}
+
+class Calculator {
+    func add(x: number, y: number): number {
+        return x + y;
+    }
+
+    func multiply(first: number, second: number): number {
+        return first * second;
+    }
+
+    func divide(numerator: number, denominator: number): number {
+        return numerator / denominator;
+    }
+
+    func calculate(operation: string, value1: number, value2: number): number {
+        return 0;
+    }
+}
+
+const calc = new Calculator();
+
+// ===== AUTOCOMPLETE WITH PARAMETER INSERTION TEST =====
+//
+// This test demonstrates the smart parameter insertion feature!
+//
+// 1. FUNCTION AUTOCOMPLETE WITH PARAMETERS:
+//    Type "greet" and press Ctrl+Space, then select greetPerson
+//    → It will insert: greetPerson(name: , age: )
+//    → Cursor will be positioned after "name: " ready to type
+//    → Press Tab to move to the next parameter (after "age: ")
+//
+// 2. MULTI-PARAMETER FUNCTION:
+//    Type "process" and press Ctrl+Space, then select processData
+//    → It will insert: processData(input: , options: , callback: )
+//    → Fill in each parameter and press Tab to move to the next one
+//
+// 3. SIMPLE FUNCTION:
+//    Type "calcu" and press Ctrl+Space, then select calculateSum
+//    → It will insert: calculateSum(a: , b: )
+//    → The cursor starts at the first parameter value position
+//
+// 4. METHOD AUTOCOMPLETE (type below this line):
+//    calc.
+//    → Select any method like "add", "multiply", "divide", or "calculate"
+//    → Parameters will be inserted automatically with tab stops
+//    → For example, selecting "add" inserts: add(x: , y: )
+//
+// 5. TRY IT HERE (delete this line and start typing):
+
